@@ -1,9 +1,12 @@
-require('dotenv').config()
-const express = require('express')
+import express from 'express'
+import mongoose from 'mongoose'
+import dotenv from 'dotenv'
+
+import { Todo } from './models/Todo.js'
+
+dotenv.config()
+
 const app = express()
-const mongoose = require('mongoose')
-
-
 
 app.get("/", (req, res) => {
     res.send("Welcome to SuperTodo's API!")
