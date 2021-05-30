@@ -1,12 +1,17 @@
+import todos from './routes/todos.js'
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
-
-import { Todo } from './models/Todo.js'
+import cors from 'cors'
 
 dotenv.config()
 
 const app = express()
+
+app.use(cors())
+app.use(express.json())
+
+app.use("/api/todos", todos)
 
 app.get("/", (req, res) => {
     res.send("Welcome to SuperTodo's API!")
