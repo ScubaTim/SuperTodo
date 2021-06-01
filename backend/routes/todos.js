@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
         res.status(500).send(err.message)
         console.log(err.message)
     }
-})
+});
 
 router.post('/', async (req, res) => {
     const schema = Joi.object({
@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
         res.status(500).send(err.message)
         console.log(`There was an error making a post request: ${err}`)
     }
-})
+});
 
 router.put("/:id", async (req, res) => {
     const schema = Joi.object({
@@ -83,9 +83,25 @@ router.put("/:id", async (req, res) => {
         res.status(500).send(err.message)
         console.log(err.message)
     }
+});
 
+router.patch("/:id", async (req, res) => {
+    const todo = await Todo.findById(req.params.id)
 
-})
+    if (!todo) {
+        return res.status(404).send("Todo not found.")
+    }
+
+    try {
+        const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, { isComplete: !todo.isComplete })
+
+        res.send(updatedTodo)
+
+    } catch (err) {
+        res.status(500).send(err.message)
+        console.log(err.message)
+    }
+});
 
 router.delete("/:id", async (req, res) => {
     try {
@@ -96,6 +112,6 @@ router.delete("/:id", async (req, res) => {
         res.status(500).send(err.message)
         console.log(err.message)
     }
-})
+});
 
 export default router
