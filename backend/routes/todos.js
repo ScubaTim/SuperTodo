@@ -4,6 +4,18 @@ import Joi from 'joi'
 
 const router = express.Router()
 
+router.get('/', async (req, res) => {
+    try {
+        const todos = await Todo.find()
+            .sort({ date: -1 })
+
+        res.send(todos)
+    } catch (err) {
+        res.status(500).send(err.message)
+        console.log(err.message)
+    }
+})
+
 router.post('/', async (req, res) => {
     const schema = Joi.object({
         name: Joi.string().min(3).max(200).required(),
@@ -13,7 +25,11 @@ router.post('/', async (req, res) => {
         date: Joi.date()
     })
 
-    schema.validate(req.body)
+    const { error } = schema.validate(req.body)
+
+    if (error) {
+        return res.status(400).send(error.details[0].message)
+    }
 
     const { name, author, uid, isComplete, date } = req.body
 
