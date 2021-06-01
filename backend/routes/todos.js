@@ -50,4 +50,15 @@ router.post('/', async (req, res) => {
     }
 })
 
+router.delete("/:id", async (req, res) => {
+    try {
+        const deletedTodo = await Todo.findByIdAndDelete(req.params.id)
+
+        res.send(deletedTodo)
+    } catch (err) {
+        res.status(500).send(err.message)
+        console.log(err.message)
+    }
+})
+
 export default router
