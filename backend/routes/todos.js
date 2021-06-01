@@ -1,13 +1,14 @@
 import { Todo } from '../models/todo.js'
+import auth from '../middleware/auth.js'
 import express from 'express'
 import Joi from 'joi'
 
 const router = express.Router()
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
-        const todos = await Todo.find()
-            .sort({ date: -1 })
+        const todos = await Todo.find().sort({ date: -1 })
+        console.log(req.user)
 
         res.send(todos)
     } catch (err) {
