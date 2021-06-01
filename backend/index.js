@@ -1,4 +1,5 @@
 import todos from './routes/todos.js'
+import signUp from './routes/signUp.js'
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
@@ -12,6 +13,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use("/api/todos", todos)
+app.use("/api/signup", signUp)
 
 app.get("/", (req, res) => {
     res.send("Welcome to SuperTodo's API!")
