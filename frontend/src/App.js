@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { Container } from "@material-ui/core"
 
 import Todos from './components/todos/Todos'
 import SignIn from './components/auth/SignIn'
@@ -10,12 +11,14 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <NavBar />
-        <Switch>
-          <Route path="/signin" component={SignIn} />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/" component={Todos} />
-        </Switch>
+        <Container maxWidth="md">
+          <NavBar />
+          <Switch>
+            <Route path="/signin" component={SignIn} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/" component={Todos} />
+          </Switch>
+        </Container>
       </BrowserRouter>
     </>
   );
