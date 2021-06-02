@@ -18,14 +18,14 @@ export const getTodos = () => {
     }
 }
 
-export const addTodo = (newTodo) => {
+export const addTodo = (todo) => {
     return (dispatch) => {
         axios
-            .post(`${url}/todos`, newTodo)
-            .then((newTodo) => {
+            .post(`${url}/todos`, todo)
+            .then((todo) => {
                 dispatch({
                     type: "ADD_TODO",
-                    newTodo
+                    todo
                 })
             })
             .catch(err => {
@@ -69,3 +69,19 @@ export const checkTodo = (id) => {
     }
 }
 
+export const deleteTodo = (id) => {
+    return (dispatch) => {
+        axios
+            .delete(`${url}/todos/${id}`)
+            .then(() => {
+                dispatch({
+                    type: "DELETE_TODO",
+                    id
+                })
+            })
+            .catch(err => {
+                console.log(err.response?.data)
+                toast.error(err.response?.data, { position: toast.POSITION.BOTTOM_RIGHT })
+            })
+    }
+}

@@ -6,14 +6,16 @@ const todoReducer = (state = [], action) => {
             return action.todos.data
         case "ADD_TODO":
             toast.success("A Todo was added.", { position: toast.POSITION.BOTTOM_RIGHT })
-            return [action.todo.data, ...state]
+            return [...state, action.todo.data]
         case "UPDATE_TODO":
             toast.success("A Todo was updated.", { position: toast.POSITION.BOTTOM_RIGHT })
             return state.map((todo) => (todo._id === action.todo.data._id ? action.todo.data : todo))
         case "CHECK_TODO":
             toast.success("A Todo status was changed...", { position: toast.POSITION.BOTTOM_RIGHT })
             return state.map((todo) => (todo._id === action.todo.data._id ? action.todo.data : todo))
-
+        case "DELETE_TODO":
+            toast.success("A todo was successfully deleted.", { position: toast.POSITION.BOTTOM_RIGHT })
+            return state.filter((todo) => todo._id !== action.id)
         default:
             return state
     }
