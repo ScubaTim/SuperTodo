@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     }
 })
 
-const ListTodos = () => {
+const ListTodos = ({ setTodo }) => {
     const classes = useStyles()
     const dispatch = useDispatch()
     const todos = useSelector((state) => state.todos)
@@ -32,7 +32,7 @@ const ListTodos = () => {
                     {todos.length > 0 ? "The Todos" : "No Todos In Database"}
                 </Typography>
                 {todos && todos.map((todo) => (
-                    <Todo todo={todo} key={todo._id} />
+                    <Todo todo={todo} setTodo={setTodo} key={todo._id} />
                 ))}
             </div>
         </>

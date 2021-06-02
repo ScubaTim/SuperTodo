@@ -1,5 +1,8 @@
 import React from 'react'
 import moment from 'moment'
+import { useDispatch } from 'react-redux'
+
+import { checkTodo } from '../../store/actions/todoActions'
 
 import { Typography, Button, ButtonGroup } from "@material-ui/core"
 import { Create, Delete, CheckCircle } from "@material-ui/icons"
@@ -25,8 +28,23 @@ const useStyles = makeStyles({
     }
 })
 
-const Todo = ({ todo }) => {
+const Todo = ({ todo, setTodo }) => {
     const classes = useStyles()
+    const dispatch = useDispatch()
+
+    const handleUpdateClick = () => {
+        setTodo(todo)
+
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        })
+    }
+
+    const handleCheck = (id) => {
+        dispatch(checkTodo(id))
+    }
 
     return (
         <>
@@ -53,17 +71,15 @@ const Todo = ({ todo }) => {
                 </div>
                 <div>
                     <ButtonGroup size="small" aria-label="outlined primary button group" >
-                        {todo.isComplete ?
-                            (
-                                <Button>
+                        <Button onClick={() => handleCheck(todo._id)}>
+                            {todo.isComplete ?
+                                (
                                     <CheckCircle color="action" className={classes.isComplete} />
-                                </Button>
-                            ) : (
-                                <Button>
+                                ) : (
                                     <CheckCircle color="action" />
-                                </Button>
-                            )}
-                        <Button>
+                                )}
+                        </Button>
+                        <Button onClick={() => handleUpdateClick()}>
                             <Create color="primary" />
                         </Button>
                         <Button>
