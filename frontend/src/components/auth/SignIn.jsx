@@ -20,7 +20,7 @@ const SignIn = () => {
 
     return (
         <>
-            <form className={classes.formStyle} noValidate="true" autoComplete="off">
+            <form className={classes.formStyle} noValidate={true} autoComplete="off">
                 <Typography variant="h5">Sign In</Typography>
                 <TextField className={classes.spacing} id="enter-email" label="Enter Email" variant="outlined" fullWidth></TextField>
                 <TextField className={classes.spacing} id="enter-password" label="Enter password" variant="outlined" fullWidth type="password" />
