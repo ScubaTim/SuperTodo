@@ -25,11 +25,12 @@ const ListTodos = ({ setTodo }) => {
         dispatch(getTodos())
     }, [dispatch])
 
+    console.log('todos', todos)
     return (
         <>
             <div className={classes.todoStyle}>
                 <Typography variant="h5">
-                    {todos.length > 0 ? "The Todos" : "No Todos In Database"}
+                    {todos.length > 0 ? "Your Todo List:" : "No todos to display."}
                 </Typography>
                 {todos && todos.map((todo) => (
                     <Todo todo={todo} setTodo={setTodo} key={todo._id} />

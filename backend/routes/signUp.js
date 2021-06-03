@@ -2,6 +2,7 @@ import { User } from '../models/user.js'
 import express from 'express'
 import Joi from 'joi'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 const router = express.Router()
 
@@ -36,7 +37,9 @@ router.post("/", async (req, res) => {
 
         await user.save()
 
-        res.send("User created.")
+        const secretKey = process.env.SECRET_KEY
+        const token = jwt.sign({ _id: user._id, name: user.name, email: user.email }, secretKey)
+        res.send(token)
 
     } catch (err) {
         res.status(500).send(err.message)

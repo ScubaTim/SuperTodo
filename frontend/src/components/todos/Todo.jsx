@@ -67,7 +67,7 @@ const Todo = ({ todo, setTodo }) => {
                     }
 
                     <Typography className={classes.muted} variant="body2">
-                        todo author
+                        Author goes Here
                     </Typography>
                     <Typography className={classes.muted} variant="body2">
                         Added: {moment(todo.date).fromNow()}
