@@ -1,4 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+
+import { signIn } from '../../store/actions/authActions'
 
 import { Typography, TextField, Button } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
@@ -17,14 +21,52 @@ const useStyles = makeStyles({
 
 const SignIn = () => {
     const classes = useStyles()
+    const auth = useSelector(state => state.auth)
+    const dispatch = useDispatch()
+    const [creds, setCreds] = useState({
+        email: "",
+        password: ""
+    })
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(
+            signIn(creds)
+        )
+        setCreds({
+            email: "",
+            password: ""
+        })
+    }
+
+    if (auth._id) return <Redirect to="/" />
 
     return (
         <>
-            <form className={classes.formStyle} noValidate={true} autoComplete="off">
+            <form className={classes.formStyle} noValidate={true} autoComplete="off" onSubmit={handleSubmit}>
                 <Typography variant="h5">Sign In</Typography>
-                <TextField className={classes.spacing} id="enter-email" label="Enter Email" variant="outlined" fullWidth></TextField>
-                <TextField className={classes.spacing} id="enter-password" label="Enter password" variant="outlined" fullWidth type="password" />
-                <Button className={classes.spacing} variant="contained" color="primary" type="submit">
+                <TextField
+                    className={classes.spacing}
+                    id="enter-email"
+                    label="Enter Email"
+                    variant="outlined"
+                    fullWidth
+                    value={creds.email}
+                    onChange={(e) => setCreds({ ...creds, email: e.target.value })} />
+                <TextField
+                    className={classes.spacing}
+                    id="enter-password"
+                    label="Enter password"
+                    variant="outlined"
+                    fullWidth
+                    type="password"
+                    value={creds.password}
+                    onChange={(e) => setCreds({ ...creds, password: e.target.value })} />
+                <Button
+                    className={classes.spacing}
+                    variant="contained"
+                    color="primary"
+                    type="submit">
                     Sign In
                 </Button>
             </form>

@@ -1,9 +1,12 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { AppBar, Typography, Toolbar, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { Link, useHistory } from 'react-router-dom'
+
+import { signOut } from '../../store/actions/authActions'
 
 const useStyles = makeStyles({
     root: {
@@ -17,14 +20,17 @@ const useStyles = makeStyles({
 
 const NavBar = () => {
     const classes = useStyles()
+    const state = useSelector(state => state)
     const history = useHistory()
+    const dispatch = useDispatch()
+
+    console.log('state', state)
 
     const handleSignOut = () => {
-        //sign out the user
+        dispatch(signOut())
 
         history.push("/signin")
     }
-
 
     return (
         <>

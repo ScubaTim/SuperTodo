@@ -11,11 +11,10 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case "USER_LOADED":
+        case "SIGN_IN":
         case "SIGN_UP":
             toast("Welcome to SuperTodo!", { position: toast.POSITION.BOTTOM_RIGHT })
             const user = jwtDecode(action.token)
-            console.log('user', user)
-            console.log('action', action)
             return {
                 ...initialState,
                 token: action.token,
@@ -23,6 +22,15 @@ const authReducer = (state = initialState, action) => {
                 email: user.email,
                 _id: user._id
             }
+        case "SIGN_OUT":
+            localStorage.removeItem("token")
+            toast("Logged out of SuperTodo. Goodbye!", { position: toast.POSITION.BOTTOM_RIGHT })
+            return ({
+                token: null,
+                name: null,
+                email: null,
+                _id: null
+            })
         default:
             return state
     }
