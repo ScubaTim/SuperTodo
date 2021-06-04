@@ -49,7 +49,7 @@ const Todo = ({ todo, setTodo }) => {
     const handleDelete = (id) => {
         dispatch(deleteTodo(id))
     }
-
+    console.log('todo', todo)
     return (
         <>
             <div className={classes.todoStyle}>
@@ -67,7 +67,7 @@ const Todo = ({ todo, setTodo }) => {
                     }
 
                     <Typography className={classes.muted} variant="body2">
-                        Author goes Here
+                        {todo.author}
                     </Typography>
                     <Typography className={classes.muted} variant="body2">
                         Added: {moment(todo.date).fromNow()}

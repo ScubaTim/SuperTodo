@@ -15,7 +15,8 @@ import 'react-toastify/dist/ReactToastify.css'
 
 const useStyles = makeStyles({
   contentStyle: {
-    margin: "30px auto"
+    margin: "30px auto",
+
   }
 })
 
